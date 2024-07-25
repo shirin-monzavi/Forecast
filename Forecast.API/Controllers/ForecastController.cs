@@ -9,7 +9,7 @@ namespace Forecast.API.Controllers;
 public class ForecastController : ControllerBase
 {
     #region Const
-    private const int OperationTimeout = 5000;
+    private const int OperationTimeout = 50000;
     #endregion
 
     #region Field
