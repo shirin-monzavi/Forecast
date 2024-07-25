@@ -31,7 +31,7 @@ public class ForecastController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<ForecastDto> Get()
+    public async Task<ForecastDto?> Get()
     {
         try
         {
@@ -39,7 +39,7 @@ public class ForecastController : ControllerBase
 
             return await _forecastService.GetForecast(cancellationTokenSource.Token);
         }
-        catch (Exception ex)
+        catch 
         {
             throw;
         }

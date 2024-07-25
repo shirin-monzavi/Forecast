@@ -4,5 +4,5 @@ namespace Forecast.Application.ContractServices;
 
 public interface IForecastService
 {
-    Task<ForecastDto> GetForecast(CancellationToken cancellationToken);
+    Task<ForecastDto?> GetForecast(CancellationToken cancellationToken);
 }
