@@ -19,6 +19,8 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <ProjectReference Include="..\Forecast.Application\Forecast.Application.csproj" />
+    <ProjectReference Include="..\Forecast.Domain\Forecast.Domain.csproj" />
     <ProjectReference Include="..\Forecast.Infrastructure\Forecast.Infrastructure.csproj" />
   </ItemGroup>
 

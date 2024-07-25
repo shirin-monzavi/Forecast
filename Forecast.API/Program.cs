@@ -1,3 +1,4 @@
+using Forecast.Application;
 using Forecast.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ForecastContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ForecastContext")));
+builder.Services.AddDbContext<ForecastContext>(o =>o.UseSqlServer(builder.Configuration.GetConnectionString                                                                                                        ("ForecastContext")));
+builder.Services.AddInfrastructureService();
+builder.Services.AddApplicationService();
 
 var app = builder.Build();
 

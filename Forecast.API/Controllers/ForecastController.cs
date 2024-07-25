@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Forecast.Application.ContractServices;
+using Forecast.Domain.Entities.Forecasts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Forecast.API.Controllers;
 
@@ -6,27 +8,44 @@ namespace Forecast.API.Controllers;
 [ApiController]
 public class ForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+    #region Const
+    private const int OperationTimeout = 5000;
+    #endregion
 
-    private readonly ILogger<ForecastController> _logger;
+    #region Field
+    private readonly IForecastService _forecastService;
+    private readonly CancellationTokenSource cancellationTokenSource = new();
+    #endregion
 
-    public ForecastController(ILogger<ForecastController> logger)
+    /// <summary>
+    /// ForecastController
+    /// </summary>
+    /// <param name="forecastService"></param>
+    public ForecastController(IForecastService forecastService)
     {
-        _logger = logger;
+        _forecastService = forecastService;
     }
 
+    /// <summary>
+    /// Get
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
+    public async Task<ForecastDto> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        try
         {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            cancellationTokenSource.CancelAfter(OperationTimeout);
+
+            return await _forecastService.GetForecast(cancellationTokenSource.Token);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+        finally
+        {
+            cancellationTokenSource.Dispose();
+        }
     }
 }
