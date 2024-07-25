@@ -25,8 +25,8 @@ public class ForecastRepository : IForecastRepository
     {
         try
         {
-            await _context.ForecastDto.AddAsync(forecastDto, cancellationToken).ConfigureAwait(false);
-            await _context.HourlyUnitsDto.AddAsync(forecastDto.HourlyUnits, cancellationToken).ConfigureAwait(false);
+            await _context.Forecast.AddAsync(forecastDto, cancellationToken).ConfigureAwait(false);
+            await _context.HourlyUnits.AddAsync(forecastDto.HourlyUnits, cancellationToken).ConfigureAwait(false);
 
             await _context.SaveChangesAsync(cancellationToken);
 
@@ -40,7 +40,7 @@ public class ForecastRepository : IForecastRepository
 
     public async Task<ForecastDto?> GetForecast(CancellationToken cancellationToken)
     {
-        return await _context.ForecastDto.OrderByDescending(x => x.Id)
+        return await _context.Forecast.OrderByDescending(x => x.Id)
                                          .AsNoTracking()
                                          .FirstOrDefaultAsync(cancellationToken)
                                          .ConfigureAwait(false);

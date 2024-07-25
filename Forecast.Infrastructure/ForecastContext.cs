@@ -26,18 +26,24 @@ public class ForecastContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ForecastDto>()
-                    .Property(e => e.Hourly)
-                    .HasConversion(
+        modelBuilder.Entity<ForecastDto>(x =>
+        {
+            x.HasOne(h=>h.HourlyUnits)
+             .WithOne(f=>f.Forecast)
+             .HasForeignKey<HourlyUnitsDto>(h=>h.ForecastId);
+
+            x.Property(e => e.Hourly)
+             .HasConversion(
                           v => JsonSerializer.Serialize(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }),
                           v => JsonSerializer.Deserialize<HourlyDto>(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }) ?? new HourlyDto()
                           );
+        });
     }
     #endregion
 
     #region Properties
-    public DbSet<ForecastDto> ForecastDto { get; set; }
+    public DbSet<ForecastDto> Forecast{ get; set; }
 
-    public DbSet<HourlyUnitsDto> HourlyUnitsDto { get; set; }
+    public DbSet<HourlyUnitsDto> HourlyUnits { get; set; }
     #endregion
 }
