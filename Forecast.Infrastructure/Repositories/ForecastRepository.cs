@@ -26,7 +26,11 @@ public class ForecastRepository : IForecastRepository
         try
         {
             await _context.Forecast.AddAsync(forecastDto, cancellationToken).ConfigureAwait(false);
-            await _context.HourlyUnits.AddAsync(forecastDto.HourlyUnits, cancellationToken).ConfigureAwait(false);
+
+            if(forecastDto.HourlyUnits is not null)
+            {
+                await _context.HourlyUnits.AddAsync(forecastDto.HourlyUnits, cancellationToken).ConfigureAwait(false);
+            }
 
             await _context.SaveChangesAsync(cancellationToken);
 

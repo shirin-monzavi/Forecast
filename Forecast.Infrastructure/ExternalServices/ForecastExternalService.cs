@@ -23,14 +23,14 @@ public class ForecastExternalService : IForecastExternalService
             return new ResponseBase<ForecastDto>()
             {
                  Data = result,
-                 Error=true,
             };
         }
         catch (FlurlHttpException ex)
         {
             return new ResponseBase<ForecastDto>()
             {
-                Reason=ex.Message
+                Reason=ex.Message,
+                Error=true
             };
         }
     }
