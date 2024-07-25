@@ -20,16 +20,37 @@ public class ForecastRepository : IForecastRepository
         _context = context;
     }
 
-    public Task<ForecastDto> AddForecast(ForecastDto forecastDto, CancellationToken cancellationToken)
+    #region Public
+    public async Task<ForecastDto> AddForecast(ForecastDto forecastDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _context.ForecastDto.AddAsync(forecastDto, cancellationToken).ConfigureAwait(false);
+            await _context.HourlyUnitsDto.AddAsync(forecastDto.HourlyUnits, cancellationToken).ConfigureAwait(false);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return forecastDto;
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     public async Task<ForecastDto?> GetForecast(CancellationToken cancellationToken)
     {
-       return await _context.ForecastDto.OrderByDescending(x => x.Id)
-                                        .AsNoTracking()
-                                        .FirstOrDefaultAsync(cancellationToken)
-                                        .ConfigureAwait(false);
+        return await _context.ForecastDto.OrderByDescending(x => x.Id)
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(cancellationToken)
+                                         .ConfigureAwait(false);
     }
+    #endregion
+
+    #region Dispose
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
+    #endregion
 }

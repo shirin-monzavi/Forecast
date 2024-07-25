@@ -2,7 +2,7 @@
 
 namespace Forecast.Domain.Contract;
 
-public interface IForecastRepository
+public interface IForecastRepository:IDisposable
 {
     Task<ForecastDto?> GetForecast(CancellationToken cancellationToken);
 
