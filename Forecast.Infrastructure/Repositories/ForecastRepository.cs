@@ -45,9 +45,9 @@ public class ForecastRepository : IForecastRepository
     public async Task<ForecastDto?> GetForecast(CancellationToken cancellationToken)
     {
         return await _context.Forecast.OrderByDescending(x => x.Id)
-                                         .AsNoTracking()
-                                         .FirstOrDefaultAsync(cancellationToken)
-                                         .ConfigureAwait(false);
+                                       .AsNoTracking()
+                                       .FirstOrDefaultAsync(cancellationToken)
+                                       .ConfigureAwait(false);
     }
     #endregion
 
