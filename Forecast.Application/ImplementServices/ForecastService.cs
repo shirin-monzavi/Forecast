@@ -21,10 +21,9 @@ public class ForecastService : IForecastService
     public async Task<ForecastDto?> GetForecast(CancellationToken cancellationToken)
     {
         var result = await _forecastExternalService.GetForecastData(cancellationToken).ConfigureAwait(false);
-
         if (result.Error)
         {
-            await _forecastRepository.AddForecast(result.Data!).ConfigureAwait(false);
+            await _forecastRepository.AddForecast(result.Data!, cancellationToken).ConfigureAwait(false);
             return result.Data!;
         }
 
