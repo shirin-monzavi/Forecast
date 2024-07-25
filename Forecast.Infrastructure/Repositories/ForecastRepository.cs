@@ -10,12 +10,12 @@ namespace Forecast.Infrastructure.Repositories;
 
 public class ForecastRepository : IForecastRepository
 {
-    public Task<ForecastDto> AddForecast(ForecastDto forecastDto)
+    public Task<ForecastDto> AddForecast(ForecastDto forecastDto, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ForecastDto> GetForecast()
+    public Task<ForecastDto> GetForecast(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

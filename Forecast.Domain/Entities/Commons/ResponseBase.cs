@@ -1,5 +1,4 @@
-﻿#nullable disable
-namespace Forecast.Domain.Entities.Commons;
+﻿namespace Forecast.Domain.Entities.Commons;
 
 public record ResponseBase<TData>
 {

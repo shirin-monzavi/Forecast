@@ -4,7 +4,7 @@ namespace Forecast.Domain.Contract;
 
 public interface IForecastRepository
 {
-    Task<ForecastDto> GetForecast();
+    Task<ForecastDto> GetForecast(CancellationToken cancellationToken);
 
-    Task<ForecastDto> AddForecast(ForecastDto forecastDto);
+    Task<ForecastDto> AddForecast(ForecastDto forecastDto, CancellationToken cancellationToken);
 }

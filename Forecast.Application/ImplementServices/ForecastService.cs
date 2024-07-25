@@ -25,12 +25,10 @@ public class ForecastService : IForecastService
         if (result.Error)
         {
             await _forecastRepository.AddForecast(result.Data!).ConfigureAwait(false);
-
             return result.Data!;
         }
 
-        var forecastData = await _forecastRepository.GetForecast().ConfigureAwait(false);
-
+        var forecastData = await _forecastRepository.GetForecast(cancellationToken).ConfigureAwait(false);
         if(forecastData is null)
         {
             return null;
