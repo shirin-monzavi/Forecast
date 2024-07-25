@@ -27,11 +27,11 @@ public class ForecastContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ForecastDto>()
-            .Property(e => e.Hourly)
-            .HasConversion(
-                  v => JsonSerializer.Serialize(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }),
-                  v => JsonSerializer.Deserialize<HourlyDto>(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }) ?? new HourlyDto()
-                  );
+                    .Property(e => e.Hourly)
+                    .HasConversion(
+                          v => JsonSerializer.Serialize(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }),
+                          v => JsonSerializer.Deserialize<HourlyDto>(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }) ?? new HourlyDto()
+                          );
     }
     #endregion
 
