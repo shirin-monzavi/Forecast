@@ -1,1 +1,17 @@
-this is just a sample project in order to show cancellation a task after a while and also get data from a third party. in addition, show data through an api.
+## 📌 Overview
+This repository demonstrates Forecast application and implemented as Web Application. This is just a sample project to cancellation token in addition to getting data from a third party.
+
+## 🎯 Usage
+This project presents how to use the Builder Pattern by creating objects step by step. The example includes:
+
+✅ Test Cancellation token.
+
+✅ Get data from a third party.
+
+##🛠️ Technologies Used
+C#
+
+.NET Framework 6.0
+
+## 🤝 Contributing
+Feel free to fork the repository, submit pull requests, or open issues for improvements and discussions.
